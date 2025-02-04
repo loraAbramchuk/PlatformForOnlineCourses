@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ course.title }}</h1>
+<p>{{ course.content }}</p>
+
+{% if user in course.students.all %}
+    <p>Вы уже записаны на этот курс!</p>
+{% else %}
+    <a href="{% url 'enroll' course.id %}" class="btn btn-primary">Записаться</a>
+{% endif %}
+
+<a href="{% url 'dashboard' %}" class="btn btn-secondary">Вернуться к курсам</a>
+{% endblock %}
