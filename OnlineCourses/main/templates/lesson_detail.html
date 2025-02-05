@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ lesson.title }}</h1>
+<p>{{ lesson.content }}</p>
+
+<a href="{% url 'course_detail' lesson.course.id %}" class="btn btn-secondary">Вернуться к курсу</a>
+{% endblock %}
