@@ -17,6 +17,7 @@
 
 {% if user in course.students.all %}
     <p>Вы уже записаны на этот курс!</p>
+    <a href="{% url 'complete_course' course.id %}" class="btn btn-success">🎓 Завершить курс и получить сертификат</a>
 {% else %}
     <a href="{% url 'enroll' course.id %}" class="btn btn-primary">Записаться</a>
 {% endif %}

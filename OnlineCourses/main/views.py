@@ -1,5 +1,5 @@
 from .forms import QuizForm
-from .models import Course, Lesson, Quiz
+from .models import Course, Lesson, Quiz, Certificate
 from django.shortcuts import get_object_or_404, redirect, render
 
 def dashboard(request):
@@ -37,3 +37,14 @@ def quiz_detail(request, quiz_id):
         form = QuizForm(quiz=quiz)
 
     return render(request, 'quizes_detail.html', {'quiz': quiz, 'form': form, 'result': result})
+
+def complete_course(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    if request.user.is_authenticated:
+        Certificate.objects.create(user=request.user, course=course)  # Создаём сертификат
+    return redirect('dashboard')  # Возвращаем пользователя на главную
+
+
+def my_certificates(request):
+    certificates = Certificate.objects.filter(user=request.user)
+    return render(request, 'my_certificates.html', {'certificates': certificates})

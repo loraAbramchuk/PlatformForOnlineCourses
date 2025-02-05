@@ -19,6 +19,7 @@
                 {% if user.is_authenticated %}
                     <li><a href="" class="btn">👤 Профиль</a></li>
                     <li><a href="{% url 'logout' %}" class="btn btn-danger">🚪 Выйти</a></li>
+                    <li><a href="{% url 'my_certificates' %}">🎖️ Мои сертификаты</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}" class="btn btn-success">🔑 Войти</a></li>
                     <li><a href="{% url 'register' %}" class="btn btn-primary">📝 Регистрация</a></li>

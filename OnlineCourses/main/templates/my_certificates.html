@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Мои сертификаты</h1>
+
+{% if certificates %}
+    <ul>
+        {% for certificate in certificates %}
+            <li>
+                🎓 Сертификат за курс <strong>{{ certificate.course.title }}</strong>  
+                (выдан {{ certificate.date_issued|date:"d.m.Y" }})
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Вы ещё не завершили ни один курс.</p>
+{% endif %}
+{% endblock %}

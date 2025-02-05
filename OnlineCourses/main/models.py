@@ -36,3 +36,11 @@ class Quiz(models.Model):
         answers = [self.correct_answer, "Неправильный ответ 1", "Неправильный ответ 2"]
         shuffle(answers)
         return answers
+
+class Certificate(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    date_issued = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Cертификат для {self.user} - {self.course}"
