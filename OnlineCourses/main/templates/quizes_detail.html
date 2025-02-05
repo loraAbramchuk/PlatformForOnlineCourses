@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Тест: {{ quiz.question }}</h1>
+
+{% if result %}
+    <p class="result">{{ result }}</p>
+{% else %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Отправить</button>
+    </form>
+{% endif %}
+
+<a href="{% url 'lesson_detail' quiz.lesson.id %}" class="btn btn-secondary">Вернуться к уроку</a>
+{% endblock %}

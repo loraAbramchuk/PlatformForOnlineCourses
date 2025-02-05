@@ -4,5 +4,16 @@
 <h1>{{ lesson.title }}</h1>
 <p>{{ lesson.content }}</p>
 
+<h2>Пройти тест, чтобы узнать свой уровень по этому уроку</h2>
+{% for quiz in lesson.quizzes.all %}
+    <p>
+        <a href="{% url 'quiz_detail' quiz.id %}">
+            {{ quiz.question }}
+        </a>
+    </p>
+{% empty %}
+    <p>Нет тестов для этого урока.</p>
+{% endfor %}
+
 <a href="{% url 'course_detail' lesson.course.id %}" class="btn btn-secondary">Вернуться к курсу</a>
 {% endblock %}

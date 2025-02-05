@@ -28,4 +28,11 @@ class Quiz(models.Model):
     correct_answer = models.CharField(max_length=200)
 
     def __str__(self):
-        return f'Тест к уроку: {self.lesson.title}'
+        return self.question
+
+    def get_shuffled_answers(self):
+        """Генерируем список ответов, перемешивая варианты"""
+        from random import shuffle
+        answers = [self.correct_answer, "Неправильный ответ 1", "Неправильный ответ 2"]
+        shuffle(answers)
+        return answers

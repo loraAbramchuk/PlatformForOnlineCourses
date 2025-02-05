@@ -1,4 +1,5 @@
-from .models import Course, Lesson
+from .forms import QuizForm
+from .models import Course, Lesson, Quiz
 from django.shortcuts import get_object_or_404, redirect, render
 
 def dashboard(request):
@@ -19,4 +20,20 @@ def enroll(request, course_id):
 
 def lesson_detail(request, lesson_id):
     lesson = get_object_or_404(Lesson, id=lesson_id)
+    # quizes = lesson.quizzes.all()
     return render(request, 'lesson_detail.html', {'lesson': lesson})
+
+def quiz_detail(request, quiz_id):
+    quiz = get_object_or_404(Quiz, id=quiz_id)
+    result = None
+
+    if request.method == 'POST':
+        form = QuizForm(request.POST, quiz=quiz)
+        if form.is_valid():
+            user_answer = form.cleaned_data['answer']
+            result = "✅ Правильно!" if user_answer == quiz.correct_answer else "❌ Неправильно!"
+
+    else:
+        form = QuizForm(quiz=quiz)
+
+    return render(request, 'quizes_detail.html', {'quiz': quiz, 'form': form, 'result': result})
