@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Добро пожаловать, {{ user.username }}!</h1>
+
+<p>Это ваша панель управления.</p>
+
+<a href="{% url 'logout' %}" class="btn btn-danger">🚪 Выйти</a>
+{% endblock %}

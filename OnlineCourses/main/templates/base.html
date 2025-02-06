@@ -17,7 +17,7 @@
             <a class="logo" href="{% url 'dashboard' %}">🎓 Онлайн-курсы</a>
             <ul class="nav-links">
                 {% if user.is_authenticated %}
-                    <li><a href="" class="btn">👤 Профиль</a></li>
+                    <li><a href="{% url 'profile' %}" class="btn">Привет, {{user.username}}! 👤 Твой Профиль</a></li>
                     <li><a href="{% url 'logout' %}" class="btn btn-danger">🚪 Выйти</a></li>
                     <li><a href="{% url 'my_certificates' %}">🎖️ Мои сертификаты</a></li>
                 {% else %}

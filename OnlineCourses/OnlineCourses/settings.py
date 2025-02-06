@@ -129,3 +129,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# LOGIN_REDIRECT_URL = '/users/general/'  # Куда перенаправлять после входа
+LOGIN_REDIRECT_URL = '/main/dashboard/'  # Куда перенаправлять после входа
+# LOGOUT_REDIRECT_URL = '/login/'  # Куда перенаправлять после выхода

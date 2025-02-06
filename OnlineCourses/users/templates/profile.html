@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Добро пожаловать, {{ user.username }}!</h1>
+
+<h2>Курсы, на которые вы записались:</h2>
+<ul>
+    {% for course in enrolled_courses %}
+        <li>{{ course.title }}</li>
+    {% empty %}
+        <li>Вы не записаны на курсы.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

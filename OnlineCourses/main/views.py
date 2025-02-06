@@ -1,7 +1,10 @@
+from django.contrib.auth.decorators import login_required
+
 from .forms import QuizForm
 from .models import Course, Lesson, Quiz, Certificate
 from django.shortcuts import get_object_or_404, redirect, render
 
+@login_required
 def dashboard(request):
     courses = Course.objects.all()
     return render(request, 'dashboard.html', {'courses' : courses})
