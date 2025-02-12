@@ -5,11 +5,6 @@ from django.contrib.auth import login
 from .forms import RegisterForm
 from main.models import Course
 
-
-# from main.models import Course
-
-
-
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -39,8 +34,6 @@ def profile_view(request):
     # Получаем пользователя
     user = request.user
 
-
     enrolled_courses = Course.objects.filter(students=user)
-
 
     return render(request, 'profile.html', {'user': user, 'enrolled_courses': enrolled_courses})

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .forms import QuizForm
 from .models import Course, Lesson, Quiz, Certificate
@@ -45,6 +46,8 @@ def complete_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     if request.user.is_authenticated:
         Certificate.objects.create(user=request.user, course=course)  # Создаём сертификат
+        messages.success(request, f"Сертификат за курс '{course.title}' успешно создан! 🎓")  # ✅ Теперь messages работает
+
     return redirect('dashboard')  # Возвращаем пользователя на главную
 
 

@@ -11,27 +11,35 @@
 </head>
 <body>
 
-    <!-- Навигационное меню -->
-    <nav class="navbar">
-        <div class="container">
-            <a class="logo" href="{% url 'dashboard' %}">🎓 Онлайн-курсы</a>
-            <ul class="nav-links">
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'profile' %}" class="btn">Привет, {{user.username}}! 👤 Твой Профиль</a></li>
-                    <li><a href="{% url 'logout' %}" class="btn btn-danger">🚪 Выйти</a></li>
-                    <li><a href="{% url 'my_certificates' %}">🎖️ Мои сертификаты</a></li>
-                {% else %}
-                    <li><a href="{% url 'login' %}" class="btn btn-success">🔑 Войти</a></li>
-                    <li><a href="{% url 'register' %}" class="btn btn-primary">📝 Регистрация</a></li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Контент страницы -->
-    <div class="container content">
-        {% block content %}{% endblock %}
+<!-- Навигационное меню -->
+<nav class="navbar">
+    <div class="container">
+        <a class="logo" href="{% url 'dashboard' %}">🎓 Онлайн-курсы</a>
+        <ul class="nav-links">
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'profile' %}" class="btn">Привет, {{user.username}}! 👤 Твой Профиль</a></li>
+            <li><a href="{% url 'logout' %}" class="btn btn-danger">🚪 Выйти</a></li>
+            <li><a href="{% url 'my_certificates' %}">🎖️ Мои сертификаты</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}" class="btn btn-success">🔑 Войти</a></li>
+            <li><a href="{% url 'register' %}" class="btn btn-primary">📝 Регистрация</a></li>
+            {% endif %}
+        </ul>
     </div>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <p class="message {{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</nav>
+
+<!-- Контент страницы -->
+<div class="container content">
+    {% block content %}{% endblock %}
+</div>
 
 </body>
 </html>
