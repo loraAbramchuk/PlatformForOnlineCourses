@@ -8,6 +8,7 @@ from django.conf import settings
 class Course(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
+    start_date = models.DateField("Дата начала курса")
     # image = models.ImageField(upload_to='courses/', blank=True, null=True)
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
 
