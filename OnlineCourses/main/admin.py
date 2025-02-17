@@ -13,7 +13,7 @@ class QuizInLine(admin.TabularInline):
     extra = 1
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title','content', 'start_date', 'get_students')
+    list_display = ('title','content', 'start_date', 'get_students', 'admin_display_price_with_currency')
     list_filter = ('title', 'start_date')
     search_fields = ('title',)
     inlines = [LessonInLine]
@@ -23,6 +23,11 @@ class CourseAdmin(admin.ModelAdmin):
 
     get_students.short_description = "Студенты"
 
+
+    def admin_display_price_with_currency(self, obj):
+        return f"{obj.price} {obj.currency}"
+
+    admin_display_price_with_currency.short_description = "Цена (с валютой)"
 
 
 class LessonAdmin(admin.ModelAdmin):

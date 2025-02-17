@@ -9,6 +9,8 @@ class Course(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     start_date = models.DateField("Дата начала курса")
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    currency = models.CharField(max_length=3, default="USD")
     # image = models.ImageField(upload_to='courses/', blank=True, null=True)
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
 
