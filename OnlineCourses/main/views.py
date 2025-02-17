@@ -45,6 +45,7 @@ def quiz_detail(request, quiz_id):
 def complete_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     if request.user.is_authenticated:
+        request.user.completed_courses.add(course)
         Certificate.objects.create(user=request.user, course=course)  # Создаём сертификат
         messages.success(request, f"Сертификат за курс '{course.title}' успешно создан! 🎓")  # ✅ Теперь messages работает
 

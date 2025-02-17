@@ -36,3 +36,7 @@ class LessonAdmin(admin.ModelAdmin):
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Quiz)
+
+admin.site.site_header = "Панель администратора OnlineCourses"  # Заголовок в шапке
+admin.site.site_title = "OnlineCourses Admin"  # Заголовок вкладки
+admin.site.index_title = "Добро пожаловать в админку OnlineCourses!"  # Подзаголовок на главной
