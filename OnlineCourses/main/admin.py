@@ -13,14 +13,17 @@ class QuizInLine(admin.TabularInline):
     extra = 1
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title','content', 'get_students')
-    list_filter = ('title',)
+    list_display = ('title','content', 'start_date', 'get_students')
+    list_filter = ('title', 'start_date')
+    search_fields = ('title',)
     inlines = [LessonInLine]
 
     def get_students(self, obj):
         return ", ".join([student.username for student in obj.students.all()])  # ✅ Показываем список имён
 
     get_students.short_description = "Студенты"
+
+
 
 class LessonAdmin(admin.ModelAdmin):
     inlines = [QuizInLine]
