@@ -39,4 +39,6 @@ admin.site.register(Quiz)
 
 admin.site.site_header = "Панель администратора OnlineCourses"  # Заголовок в шапке
 admin.site.site_title = "OnlineCourses Admin"  # Заголовок вкладки
-admin.site.index_title = "Добро пожаловать в админку OnlineCourses!"  # Подзаголовок на главной
+admin.site.index_title = "Добро пожаловать в админку OnlineCourses!"
+
+# Подзаголовок на главной

@@ -7,6 +7,7 @@ from django.contrib import messages
 from .models import CustomUser
 from main.models import Course
 
+from django.templatetags.static import static
 
 class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'display_completed_courses')
@@ -33,16 +34,11 @@ class CustomUserAdmin(UserAdmin):
 
     display_completed_courses.short_description = "Завершённые курсы"
 
-class CustomAdminSite(admin.AdminSite):
-    def get_urls(self):
-        urls = super().get_urls()
-        return urls
+    def changelist_view(self, request, extra_context=None):
+        if extra_context is None:
+            extra_context = {}
+        extra_context['custom_styles'] = static('admin/custom.css')  # Добавляем путь к стилям
+        return super().changelist_view(request, extra_context=extra_context)
 
-    def each_context(self, request):
-        context = super().each_context(request)
-        context['custom_styles'] = "/static/custom.css"  # Подключаем стили
-        return context
-
-admin.site = CustomAdminSite(name='custom_admin')
 
 admin.site.register(CustomUser, CustomUserAdmin)
