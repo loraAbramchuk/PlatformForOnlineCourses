@@ -1,18 +1,21 @@
 from django.db import models
 from django.db.models import Model
 from django.conf import settings
+from django.utils import timezone
 
 
 # Create your models here.
 
 class Course(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
     start_date = models.DateField("Дата начала курса")
     price = models.DecimalField(max_digits=6, decimal_places=2)
     currency = models.CharField(max_length=3, default="USD")
     # image = models.ImageField(upload_to='courses/', blank=True, null=True)
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='enrolled_courses', blank=True)
 
     def __str__(self):
         return self.title

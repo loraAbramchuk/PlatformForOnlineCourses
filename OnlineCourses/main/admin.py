@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Course, Lesson, Quiz
+from .models import Course, Lesson, Quiz, Certificate
 
 class LessonInLine(admin.TabularInline):
     model = Lesson
@@ -12,33 +12,30 @@ class QuizInLine(admin.TabularInline):
     model = Quiz
     extra = 1
 
+@admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title','content', 'start_date', 'get_students', 'admin_display_price_with_currency')
-    list_filter = ('title', 'start_date')
-    search_fields = ('title',)
-    inlines = [LessonInLine]
+    list_display = ['title', 'description', 'start_date', 'price', 'currency']
+    search_fields = ['title', 'description']
+    list_filter = ['start_date', 'price']
 
-    def get_students(self, obj):
-        return ", ".join([student.username for student in obj.students.all()])  # ✅ Показываем список имён
-
-    get_students.short_description = "Студенты"
-
-
-    def admin_display_price_with_currency(self, obj):
-        return f"{obj.price} {obj.currency}"
-
-    admin_display_price_with_currency.short_description = "Цена (с валютой)"
-
-
+@admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    inlines = [QuizInLine]
+    list_display = ['title', 'course']
+    search_fields = ['title']
+    list_filter = ['course']
 
-admin.site.register(Course, CourseAdmin)
-admin.site.register(Lesson, LessonAdmin)
-admin.site.register(Quiz)
+@admin.register(Quiz)
+class QuizAdmin(admin.ModelAdmin):
+    list_display = ['question', 'lesson']
+    search_fields = ['question']
+    list_filter = ['lesson']
 
-admin.site.site_header = "Панель администратора OnlineCourses"  # Заголовок в шапке
-admin.site.site_title = "OnlineCourses Admin"  # Заголовок вкладки
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ['user', 'course', 'date_issued']
+    search_fields = ['user__username', 'course__title']
+    list_filter = ['date_issued']
+
+admin.site.site_header = "Панель администратора OnlineCourses"
+admin.site.site_title = "OnlineCourses Admin"  
 admin.site.index_title = "Добро пожаловать в админку OnlineCourses!"
-
-# Подзаголовок на главной

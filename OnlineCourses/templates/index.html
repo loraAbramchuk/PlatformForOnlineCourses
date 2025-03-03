@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Добро пожаловать на платформу онлайн-курсов!</h1>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Наши курсы</h5>
+                    <p class="card-text">Изучайте новые технологии и развивайте свои навыки с нашими курсами.</p>
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary">Перейти к курсам</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
