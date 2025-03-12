@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'users',
+    'users.apps.UsersConfig',
     'rest_framework',
 ]
 
@@ -138,3 +138,40 @@ AUTH_USER_MODEL = 'users.CustomUser'
 # LOGIN_REDIRECT_URL = '/users/general/'  # Куда перенаправлять после входа
 LOGIN_REDIRECT_URL = '/main/dashboard/'  # Куда перенаправлять после входа
 # LOGOUT_REDIRECT_URL = '/login/'  # Куда перенаправлять после выхода
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'larachka.06@gmail.com'
+EMAIL_HOST_PASSWORD = 'ecqp ydit sdjn qdnu'
+
+# Дополнительные настройки для писем
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+
+# Logging settings
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+        'users': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+    },
+}
