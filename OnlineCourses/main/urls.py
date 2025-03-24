@@ -1,4 +1,5 @@
 from django.urls import path, include
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.routers import DefaultRouter
 from . import views
 
@@ -7,6 +8,7 @@ router.register(r'courses', views.CourseViewSet)
 router.register(r'lessons', views.LessonViewSet)
 router.register(r'quizzes', views.QuizViewSet)
 router.register(r'certificates', views.CertificateViewSet)
+
 
 urlpatterns = [
     # Web URLs
@@ -21,4 +23,9 @@ urlpatterns = [
     
     # API URLs
     path('api/', include(router.urls)),
+
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='docs'),
+
+
 ]

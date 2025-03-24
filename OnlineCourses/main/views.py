@@ -98,3 +98,4 @@ class CertificateViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Certificate.objects.filter(user=self.request.user)
+

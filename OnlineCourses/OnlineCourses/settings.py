@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'main',
     'users.apps.UsersConfig',
     'rest_framework',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -173,5 +175,28 @@ LOGGING = {
             'handlers': ['console', 'file'],
             'level': 'INFO',
         },
+    },
+}
+
+REST_FRAMEWORK = {
+    # ВАШИ НАСТРОЙКИ
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# Celery Configuration
+# CELERY_BROKER_URL = 'memory://'
+# CELERY_RESULT_BACKEND = 'cache+memory://'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+# Celery Beat Schedule
+CELERY_BEAT_SCHEDULE = {
+    'generate-weekly-report': {
+        'task': 'main.tasks.generate_weekly_report',
+        # 'schedule': crontab(day_of_week='monday', hour=9, minute=0),  # Каждый понедельник в 9:00
+        'schedule':60
     },
 }
